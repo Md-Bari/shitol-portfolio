@@ -5,11 +5,13 @@ import Navbar from "../Components/Navbar";
 import CustomCursor from "../Components/CustomCursor";
 import RightSidebar from "../Components/RightSidebar";
 import snowAnimation from "../../public/bg_style.json";
+import LoadingScreen from "../Components/LoadingScreen";
 
 // Handle CJS/ESM interop: rolldown-vite may wrap the default export in an object
 const Lottie = typeof LottieModule === "function" ? LottieModule : LottieModule.default;
 
 const Root = () => {
+  const [loading, setLoading] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [animationLoaded, setAnimationLoaded] = useState(false);
   const lottieRef = useRef(null);
@@ -32,6 +34,7 @@ const Root = () => {
 
   return (
     <div className="min-h-screen relative">
+      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       {/* Lottie snow background — fixed, full screen, behind everything */}
       <div
         className="fixed inset-0 z-0 pointer-events-none transition-all duration-300 ease-out"
