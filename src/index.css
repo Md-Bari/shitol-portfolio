@@ -210,47 +210,5 @@
     animation-play-state: paused;
   }
 
-  .custom-cursor-glow {
-    animation: cursorGlowPulse 3.2s ease-in-out infinite;
-  }
-
-  .custom-cursor-dot {
-    animation: cursorDotPulse 2.6s ease-in-out infinite;
-  }
-
-  .custom-cursor-ring {
-    animation: cursorRingGlow 4s ease-in-out infinite;
-  }
-
-  @keyframes cursorGlowPulse {
-    0%,
-    100% {
-      opacity: 0.4;
-      filter: blur(22px);
-    }
-    50% {
-      opacity: 0.6;
-      filter: blur(28px);
-    }
-  }
-
-  @keyframes cursorDotPulse {
-    0%,
-    100% {
-      box-shadow: 0 0 18px rgba(139, 92, 246, 0.7), 0 0 44px rgba(56, 189, 248, 0.25);
-    }
-    50% {
-      box-shadow: 0 0 30px rgba(168, 85, 247, 0.9), 0 0 62px rgba(56, 189, 248, 0.45);
-    }
-  }
-
-  @keyframes cursorRingGlow {
-    0%,
-    100% {
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.32);
-    }
-    50% {
-      box-shadow: 0 0 30px rgba(56, 189, 248, 0.55);
-    }
-  }
+  /* Liquid cursor styles are handled inline in CustomCursor.jsx */
 }

@@ -90,7 +90,7 @@ const Header = () => {
     >
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gray-950"></div>
-      <div className="absolute inset-0" style={{background: 'radial-gradient(circle at 30% 20%, rgba(20, 184, 166, 0.12), transparent 50%), radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.1), transparent 50%)'}}></div>
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 30% 20%, rgba(20, 184, 166, 0.12), transparent 50%), radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.1), transparent 50%)' }}></div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 items-center">
@@ -128,7 +128,7 @@ const Header = () => {
                 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-300"
                 style={{ opacity: 0 }}
               >
-                AI Developer | Laravel Full Stack Developer
+                AI Engineer || Full Stack Developer
               </h2>
               <p
                 ref={descRef}
