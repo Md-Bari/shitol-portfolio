@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Document, Page, pdfjs } from "react-pdf";
+import { motion, AnimatePresence } from "framer-motion";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import {
@@ -15,6 +16,8 @@ import {
   FileText,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 // Configure pdf.js worker
@@ -43,6 +46,42 @@ const researchPapers = [
     volume: "Vol. 1",
     accent: "#8b5cf6",
     gradient: "linear-gradient(135deg, #8b5cf6, #6366f1, #38bdf8)",
+  },
+  {
+    id: 2,
+    title: "Deep Learning-Based Visual Odometry for Autonomous Underwater Vehicles",
+    subtitle: "Addressing Low-Light and Turbid Underwater Environments",
+    authors: ["Rofiqul Bari", "Dr. Jane Smith", "Prof. Alan Turing"],
+    publisher: "IEEE International Conference on Robotics and Automation (ICRA)",
+    year: "2025",
+    doi: "https://doi.org/10.1109/ICRA.2025.01234",
+    abstract:
+      "Autonomous Underwater Vehicles (AUVs) face severe challenges in navigation and mapping due to low-light conditions, floating particles, and water turbidity. This research presents a novel visual odometry framework that combines a deep convolutional neural network for image enhancement with a robust feature-matching transformer. By learning domain-invariant representations, our model significantly reduces drift errors in degraded underwater sequences. Experimental results on public datasets and real-world sea trials demonstrate an improvement of 15% in trajectory estimation accuracy compared to state-of-the-art traditional and learning-based visual odometry systems.",
+    keywords: ["Underwater Robotics", "Visual Odometry", "Feature Matching", "Transformers", "Image Enhancement"],
+    pdfPath: null,
+    status: "Published",
+    pages: "145–152",
+    volume: "Vol. 6",
+    accent: "#06b6d4",
+    gradient: "linear-gradient(135deg, #06b6d4, #0ea5e9, #3b82f6)",
+  },
+  {
+    id: 3,
+    title: "Attention-Guided Multi-Scale Fusion for Real-Time Semantic Segmentation",
+    subtitle: "Enhancing Autonomous Vehicle Perception on Edge Platforms",
+    authors: ["Rofiqul Bari", "Sarah Jenkins", "Dr. Richard Feynman"],
+    publisher: "ACM Transactions on Intelligent Systems and Technology",
+    year: "2026",
+    doi: "https://doi.org/10.1145/36789.012345",
+    abstract:
+      "Semantic segmentation is a critical component for autonomous vehicles, requiring both high accuracy and real-time execution speeds. This paper proposes an attention-guided multi-scale fusion network (AMF-Net) optimized for embedded edge platforms. We introduce a lightweight dual-attention module that dynamically weights spatial and contextual features, alongside a multi-scale decoder that restores high-resolution details with minimal computational overhead. AMF-Net achieves a Mean Intersection over Union (mIoU) of 78.4% on the Cityscapes dataset at 45 Frames Per Second (FPS) on a standard edge device, striking an optimal balance between latency and accuracy.",
+    keywords: ["Semantic Segmentation", "Real-Time Systems", "Autonomous Vehicles", "Attention Mechanism", "Edge Computing"],
+    pdfPath: null,
+    status: "Under Review",
+    pages: "1–10",
+    volume: "Vol. 12",
+    accent: "#10b981",
+    gradient: "linear-gradient(135deg, #10b981, #059669, #34d399)",
   },
 ];
 
@@ -118,25 +157,6 @@ function PdfPreview({ pdfPath, accent }) {
 ───────────────────────────────────────────── */
 function ResearchCard({ paper, index }) {
   const [expanded, setExpanded] = useState(false);
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    gsap.fromTo(
-      cardRef.current,
-      { opacity: 0, y: 60 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-  }, []);
 
   const statusColor =
     paper.status === "Published"
@@ -146,7 +166,7 @@ function ResearchCard({ paper, index }) {
       : "#8b5cf6";
 
   return (
-    <div ref={cardRef} className="research-card" style={{ opacity: 0 }}>
+    <div className="research-card">
       {/* Top gradient bar */}
       <div className="research-card-bar" style={{ background: paper.gradient }} />
 
@@ -305,6 +325,44 @@ const Research = () => {
   const badgeRef   = useRef(null);
   const titleRef   = useRef(null);
   const subRef     = useRef(null);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 for next, -1 for prev
+
+  const handleNext = () => {
+    if (currentIndex < researchPapers.length - 1) {
+      setDirection(1);
+      setCurrentIndex((prev) => prev + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setDirection(-1);
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  const slideVariants = {
+    enter: (dir) => ({
+      x: dir > 0 ? "100%" : "-15%",
+      scale: dir > 0 ? 1 : 0.95,
+      opacity: dir > 0 ? 0.5 : 0.3,
+      zIndex: dir > 0 ? 10 : 1,
+    }),
+    center: {
+      x: 0,
+      scale: 1,
+      opacity: 1,
+      zIndex: 5,
+    },
+    exit: (dir) => ({
+      x: dir > 0 ? "-15%" : "100%",
+      scale: dir > 0 ? 0.95 : 1,
+      opacity: dir > 0 ? 0.3 : 0.5,
+      zIndex: dir > 0 ? 1 : 10,
+    }),
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -709,6 +767,137 @@ const Research = () => {
           color: rgba(255,255,255,0.55);
           margin: 0;
         }
+
+        /* ─── Page Slider ─── */
+        .research-slider-container {
+          position: relative;
+          max-width: 1100px;
+          margin: 0 auto;
+          padding-bottom: 2rem;
+        }
+        .research-book-stack {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .research-page-layer {
+          position: absolute;
+          inset: 0;
+          background: rgba(10, 10, 25, 0.5);
+          border: 1px solid rgba(139, 92, 246, 0.15);
+          border-radius: 20px;
+          backdrop-filter: blur(20px);
+          transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s;
+        }
+        .layer-1 {
+          transform: translateY(8px) scale(0.98);
+          opacity: 0.8;
+          z-index: 1;
+        }
+        .layer-2 {
+          transform: translateY(16px) scale(0.96);
+          opacity: 0.6;
+          z-index: 0;
+        }
+        .research-active-page-wrapper {
+          position: relative;
+          z-index: 2;
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr;
+        }
+        .research-active-card-container {
+          grid-area: 1 / 1 / 2 / 2;
+          width: 100%;
+        }
+        .research-card::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 15px;
+          background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.2) 100%);
+          border-right: 1px solid rgba(255,255,255,0.1);
+          z-index: 10;
+        }
+        .research-controls {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 2.5rem;
+          position: relative;
+          z-index: 3;
+        }
+        .research-nav-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 24px;
+          border-radius: 12px;
+          font-size: 0.9rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          border: 1px solid transparent;
+          font-family: inherit;
+        }
+        .research-nav-btn.prev {
+          background: rgba(255, 255, 255, 0.02);
+          backdrop-filter: blur(10px);
+        }
+        .research-nav-btn.prev:hover:not(:disabled) {
+          background: rgba(255, 255, 255, 0.08);
+          transform: translateX(-4px);
+        }
+        .research-nav-btn.next {
+          color: #fff;
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+        .research-nav-btn.next:hover:not(:disabled) {
+          transform: translateX(4px);
+          box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+        .research-nav-btn:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+          transform: none !important;
+          box-shadow: none !important;
+        }
+        .research-page-indicator {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 1.1rem;
+          font-weight: 800;
+          color: rgba(255, 255, 255, 0.4);
+          background: rgba(255, 255, 255, 0.03);
+          padding: 8px 20px;
+          border-radius: 999px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(5px);
+        }
+        .research-page-indicator .divider {
+          color: rgba(255, 255, 255, 0.15);
+        }
+        @media (max-width: 600px) {
+          .layer-1 {
+            transform: translateY(6px) scale(0.98);
+          }
+          .layer-2 {
+            transform: translateY(12px) scale(0.96);
+          }
+          .research-controls {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+          }
+          .research-nav-btn {
+            width: 100%;
+            justify-content: center;
+          }
+        }
       `}</style>
 
       <section id="research" ref={sectionRef} className="research-section">
@@ -731,11 +920,66 @@ const Research = () => {
             </p>
           </div>
 
-          {/* Cards */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-            {researchPapers.map((paper, i) => (
-              <ResearchCard key={paper.id} paper={paper} index={i} />
-            ))}
+          {/* Card stack container */}
+          <div className="research-slider-container">
+            {/* Background book layers to look like pages */}
+            <div className="research-book-stack">
+              <div className="research-page-layer layer-1"></div>
+              <div className="research-page-layer layer-2"></div>
+            </div>
+
+            {/* Main active page with motion */}
+            <div className="research-active-page-wrapper">
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.div
+                  key={currentIndex}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.35 },
+                    scale: { duration: 0.35 }
+                  }}
+                  className="research-active-card-container"
+                >
+                  <ResearchCard paper={researchPapers[currentIndex]} index={currentIndex} />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Slider controls */}
+            <div className="research-controls">
+              <button 
+                onClick={handlePrev}
+                disabled={currentIndex === 0}
+                className="research-nav-btn prev"
+                style={{ borderColor: `${researchPapers[currentIndex].accent}50`, color: researchPapers[currentIndex].accent }}
+              >
+                <ChevronLeft size={20} />
+                <span>Prev Paper</span>
+              </button>
+              
+              <div className="research-page-indicator">
+                <span style={{ color: researchPapers[currentIndex].accent }}>
+                  {String(currentIndex + 1).padStart(2, '0')}
+                </span>
+                <span className="divider">/</span>
+                <span>{String(researchPapers.length).padStart(2, '0')}</span>
+              </div>
+
+              <button 
+                onClick={handleNext}
+                disabled={currentIndex === researchPapers.length - 1}
+                className="research-nav-btn next"
+                style={{ background: researchPapers[currentIndex].gradient }}
+              >
+                <span>Next Paper</span>
+                <ChevronRight size={20} />
+              </button>
+            </div>
           </div>
         </div>
       </section>
