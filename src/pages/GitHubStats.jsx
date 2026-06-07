@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaGithub, FaStar, FaCodeBranch } from "react-icons/fa";
-import { Users, BookOpen, TrendingUp, ExternalLink, Code2, GitCommit, Calendar, Flame, Zap } from "lucide-react";
+import { Users, BookOpen, TrendingUp, ExternalLink, Code2, GitCommit, Calendar, Flame } from "lucide-react";
 
 const USERNAME = "Md-Bari";
 
@@ -269,7 +269,7 @@ export default function GitHubStats() {
               ))}
             </div>
 
-            {/* ── Language Bars + Contribution Calendar ── */}
+            {/* ── Languages Used + Contribution Streak ── */}
             <div style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
@@ -295,24 +295,18 @@ export default function GitHubStats() {
                 </div>
               </div>
 
-              {/* Self-rendered Contribution Calendar */}
-              <ContribCalendar contributions={contributions} total={contribTotal} />
-            </div>
-
-            {/* ── Native Stats Card + Streak image ── */}
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: 20, marginBottom: 24,
-            }}>
-              {/* Native stats built from API data */}
-              <NativeStatsCard user={user} repos={repos} totalStars={totalStars} totalForks={totalForks} />
+              {/* Contribution Streak */}
               <ImgCard
                 src={`https://github-readme-streak-stats.herokuapp.com?user=${USERNAME}&theme=github-dark-blue&hide_border=true&background=0d1117&ring=8b5cf6&fire=ec4899&currStreakLabel=58a6ff`}
                 alt="Streak Stats"
                 label="Contribution Streak"
                 icon={<Flame size={14} style={{ color: "#ec4899" }} />}
               />
+            </div>
+
+            {/* ── Contribution Activity (Full Row) ── */}
+            <div style={{ marginBottom: 24 }}>
+              <ContribCalendar contributions={contributions} total={contribTotal} />
             </div>
 
             {/* ── Top Repos ── */}
@@ -696,56 +690,3 @@ function ContribCalendar({ contributions, total }) {
   );
 }
 
-/* ── Native Performance Stats Card ── */
-function NativeStatsCard({ user, repos, totalStars, totalForks }) {
-  const primaryLang = repos.length > 0 ? repos[0].language : "None";
-
-  return (
-    <div style={{
-      background: "rgba(13,17,23,0.9)",
-      border: "1px solid rgba(48,54,61,0.9)",
-      borderRadius: 16, padding: 24,
-      backdropFilter: "blur(12px)",
-      display: "flex",
-      flexDirection: "column",
-      gap: 16,
-    }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <Zap size={15} style={{ color: "#f59e0b" }} />
-        <span style={{ fontSize: "0.9rem", fontWeight: 700, color: "rgba(255,255,255,0.85)" }}>
-          GitHub Performance
-        </span>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, justifyContent: "center" }}>
-        {[
-          { label: "Star Rating", value: `${totalStars} Stars`, desc: "Total stars accumulated", color: "#f59e0b" },
-          { label: "Fork Share", value: `${totalForks} Forks`, desc: "Total repository forks", color: "#10b981" },
-          { label: "Follower Ratio", value: (user.followers / (user.following || 1)).toFixed(1), desc: "Followers to following ratio", color: "#8b5cf6" },
-          { label: "Top Tech", value: primaryLang || "N/A", desc: "Most frequent repository language", color: "#58a6ff" },
-        ].map((stat, index) => (
-          <div key={index} style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "10px 12px",
-            borderRadius: 10,
-            background: "rgba(255,255,255,0.02)",
-            border: "1px solid rgba(255,255,255,0.05)",
-          }}>
-            <div>
-              <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>
-                {stat.label}
-              </div>
-              <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.35)", marginTop: 2 }}>
-                {stat.desc}
-              </div>
-            </div>
-            <div style={{ fontSize: "1.05rem", fontWeight: 800, color: stat.color }}>
-              {stat.value}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
