@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Github, Linkedin, Mail, Download } from "lucide-react";
 import { gsap } from "gsap";
 import profilePhoto from "../assets/Profile-photo.png";
+import cyberPhoto from "../assets/cyber-profile.png";
 import resumePdf from "../assets/resume.pdf";
 
 const resumeDownloadPath = resumePdf;
@@ -17,6 +18,76 @@ const Header = () => {
   const socialRef = useRef(null);
   const imageContainerRef = useRef(null);
   const scrollIndicatorRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (!imageContainerRef.current) return;
+    const rect = imageContainerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    // Calculate 3D tilt angles (max 15 degrees)
+    const tiltX = (y / (rect.height / 2)) * -15;
+    const tiltY = (x / (rect.width / 2)) * 15;
+
+    gsap.to(".interactive-profile-frame", {
+      rotateX: tiltX,
+      rotateY: tiltY,
+      transformPerspective: 1000,
+      ease: "power2.out",
+      duration: 0.3,
+    });
+
+    // Translate background glow for parallax
+    gsap.to(".profile-glow-bg", {
+      x: x * 0.15,
+      y: y * 0.15,
+      ease: "power2.out",
+      duration: 0.4,
+    });
+  };
+
+  const handleMouseEnter = () => {
+    gsap.to(".interactive-profile-frame", {
+      scale: 1.05,
+      boxShadow: "0 25px 50px -12px rgba(20, 184, 166, 0.45)",
+      duration: 0.3,
+    });
+    gsap.to(".rotating-glow-border", {
+      scale: 1.12,
+      opacity: 1,
+      duration: 0.3,
+    });
+    gsap.to(".cyber-profile-photo", {
+      opacity: 1,
+      duration: 0.4,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    gsap.to(".interactive-profile-frame", {
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      boxShadow: "0 0px 0px 0px rgba(0,0,0,0)",
+      ease: "power2.out",
+      duration: 0.5,
+    });
+    gsap.to(".profile-glow-bg", {
+      x: 0,
+      y: 0,
+      ease: "power2.out",
+      duration: 0.5,
+    });
+    gsap.to(".rotating-glow-border", {
+      scale: 1,
+      opacity: 0.75,
+      duration: 0.5,
+    });
+    gsap.to(".cyber-profile-photo", {
+      opacity: 0,
+      duration: 0.4,
+    });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -208,22 +279,34 @@ const Header = () => {
           >
             {/* Animated background circles */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="absolute w-48 h-48 sm:w-72 sm:h-72 bg-teal-500/20 rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute w-64 h-64 sm:w-96 sm:h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
+              <div className="profile-glow-bg absolute w-48 h-48 sm:w-72 sm:h-72 bg-teal-500/20 rounded-full blur-3xl animate-pulse"></div>
+              <div className="profile-glow-bg absolute w-64 h-64 sm:w-96 sm:h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
             </div>
 
             {/* Image container */}
-            <div className="relative z-10 group">
+            <div
+              className="relative z-10 cursor-pointer"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               {/* Rotating border */}
-              <div className="absolute -inset-3 sm:-inset-4 bg-linear-to-r from-teal-400 via-[#14B8A6] to-emerald-500 rounded-full opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
+              <div className="rotating-glow-border absolute -inset-3 sm:-inset-4 bg-linear-to-r from-teal-400 via-[#14B8A6] to-emerald-500 rounded-full opacity-75 blur-xl transition-all duration-500 animate-spin-slow"></div>
 
               {/* Image frame */}
-              <div className="relative bg-gray-900 p-1.5 sm:p-2 rounded-full border-2 sm:border-4 border-teal-500/50">
-                <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-2 sm:border-4 border-gray-800">
+              <div className="interactive-profile-frame relative bg-gray-900 p-1.5 sm:p-2 rounded-full border-2 sm:border-4 border-teal-500/50 transition-all duration-300">
+                <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-2 sm:border-4 border-gray-800 relative">
+                  {/* Original Image */}
                   <img
                     src={profilePhoto}
                     alt="Md Rofiqul Bari"
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500 absolute inset-0"
+                  />
+                  {/* Cybernetic AI Avatar Image (Hover State) */}
+                  <img
+                    src={cyberPhoto}
+                    alt="Md Rofiqul Bari Cybernetic"
+                    className="cyber-profile-photo w-full h-full object-cover absolute inset-0 opacity-0 pointer-events-none transition-all duration-500 scale-105"
                   />
                 </div>
               </div>
