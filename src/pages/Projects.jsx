@@ -5,6 +5,9 @@ import { FaGithub } from "react-icons/fa";
 import { Zap, ArrowUpRight } from "lucide-react";
 import bsmsImage from "../assets/bsms.png";
 import rmsImage from "../assets/rms.png";
+import auraflowImage from "../assets/auraflow.png";
+import docutuneImage from "../assets/docutune.png";
+import omnisightImage from "../assets/omnisight.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +23,60 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
+      title: "AuraFlow: Multi-Agent RAG Orchestrator",
+      subtitle: "(Enterprise Knowledge Retrieval & Action Engine)",
+      description:
+        "An advanced Multi-Agent system that orchestrates planning, tool execution, and vector-search retrieval to answer complex queries over private knowledge graphs.",
+      highlights: [
+        "Implemented self-correction loops using LangGraph and function calling to validate factual consistency",
+        "Crafted hybrid search (sparse BM25 + dense vector) using Qdrant with custom cross-encoder rerankers",
+        "Designed dynamic context-window optimization to reduce token usage by 35% on GPT-4o",
+      ],
+      tags: ["LangGraph", "Qdrant", "Python", "LlamaIndex", "FastAPI", "OpenAI API"],
+      image: auraflowImage,
+      github: "https://github.com/Md-Bari",
+      live: "https://github.com/Md-Bari",
+      accent: "#8B5CF6",
+      gradientStyle: "linear-gradient(135deg,#a78bfa,#8B5CF6,#6366f1)",
+    },
+    {
+      id: 2,
+      title: "DocuTune-LLM: Domain Fine-Tuning Pipeline",
+      subtitle: "(Automated LLM Specialization & Benchmarking Engine)",
+      description:
+        "An end-to-end MLOps pipeline to fine-tune open-source models (Llama 3, Mistral) on custom proprietary corpuses using parameter-efficient methods.",
+      highlights: [
+        "Standardized QLoRA fine-tuning utilizing HuggingFace PEFT and DeepSpeed ZeRO-3 for multi-GPU training",
+        "Programmed automatic prompt evaluation utilizing LLM-as-a-judge and benchmark harnesses (MMLU, GSM8k)",
+        "Reduced model size by 4x using llama.cpp GGUF quantization (4-bit/8-bit) for CPU/edge deployments",
+      ],
+      tags: ["PyTorch", "HuggingFace", "DeepSpeed", "QLoRA", "MLflow", "CUDA"],
+      image: docutuneImage,
+      github: "https://github.com/Md-Bari",
+      live: "https://github.com/Md-Bari",
+      accent: "#EC4899",
+      gradientStyle: "linear-gradient(135deg,#f472b6,#EC4899,#db2777)",
+    },
+    {
+      id: 3,
+      title: "OmniSight: Multimodal Edge Vision System",
+      subtitle: "(Real-Time Object Detection, Segmenting & Captioning Pipeline)",
+      description:
+        "A real-time vision pipeline that performs semantic object segmentation and generates natural language explanations of video streams on edge hardware.",
+      highlights: [
+        "Optimized YOLOv8 and Segment Anything Model (SAM) using TensorRT, boosting edge inference from 8 FPS to 65 FPS",
+        "Built asynchronous video streaming ingestion using FastAPI WebSockets and Redis Pub/Sub queue",
+        "Integrated Whisper & LLaVA for natural language audio alerts based on real-time visual events",
+      ],
+      tags: ["TensorRT", "YOLOv8", "FastAPI", "Redis", "Docker", "WebSockets"],
+      image: omnisightImage,
+      github: "https://github.com/Md-Bari",
+      live: "https://github.com/Md-Bari",
+      accent: "#3B82F6",
+      gradientStyle: "linear-gradient(135deg,#60a5fa,#3B82F6,#2563eb)",
+    },
+    {
+      id: 4,
       title: "Building Nad Society Management System (BSMS)",
       subtitle: "(Bills, Maintenance and Security Management Platform)",
       description:
@@ -37,7 +94,7 @@ const Projects = () => {
       gradientStyle: "linear-gradient(135deg,#2dd4bf,#14B8A6,#10b981)",
     },
     {
-      id: 2,
+      id: 5,
       title: "Restaurent Management System (RMS)",
       subtitle: "(Property Rental and Management Platform)",
       description:
@@ -55,7 +112,7 @@ const Projects = () => {
       gradientStyle: "linear-gradient(135deg,#2dd4bf,#14B8A6,#10b981)",
     },
     {
-      id: 3,
+      id: 6,
       title: "SkillSwap",
       subtitle: "(Skill Learning Platform)",
       description:
