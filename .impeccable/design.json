@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-25T00:00:00+06:00",
+  "title": "Design System: Rofiqul Bari Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "void-bg": {
+        "role": "neutral",
+        "displayName": "Void Background",
+        "canonical": "#0a0a0a",
+        "tonalRamp": ["#050505", "#0a0a0a", "#111111", "#1a1a1a", "#2a2a2a", "#555555", "#999999", "#f2f2f2"]
+      },
+      "panel-bg": {
+        "role": "neutral",
+        "displayName": "Panel Background",
+        "canonical": "#111827",
+        "tonalRamp": ["#05080d", "#0b1020", "#111827", "#1f2937", "#374151", "#6b7280", "#d1d5db", "#f9fafb"]
+      },
+      "signal-teal": {
+        "role": "primary",
+        "displayName": "Signal Teal",
+        "canonical": "#14b8a6",
+        "tonalRamp": ["#042f2e", "#0f766e", "#0d9488", "#14b8a6", "#2dd4bf", "#5eead4", "#99f6e4", "#ccfbf1"]
+      },
+      "data-cyan": {
+        "role": "secondary",
+        "displayName": "Data Cyan",
+        "canonical": "#22d3ee",
+        "tonalRamp": ["#083344", "#0e7490", "#0891b2", "#06b6d4", "#22d3ee", "#67e8f9", "#a5f3fc", "#cffafe"]
+      },
+      "ai-violet": {
+        "role": "secondary",
+        "displayName": "AI Violet",
+        "canonical": "#8b5cf6",
+        "tonalRamp": ["#2e1065", "#5b21b6", "#7c3aed", "#8b5cf6", "#a78bfa", "#c4b5fd", "#ddd6fe", "#ede9fe"]
+      },
+      "alert-pink": {
+        "role": "tertiary",
+        "displayName": "Alert Pink",
+        "canonical": "#ec4899",
+        "tonalRamp": ["#500724", "#9d174d", "#db2777", "#ec4899", "#f472b6", "#f9a8d4", "#fbcfe8", "#fdf2f8"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero names, primary section headers, and first-load welcome moments."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles and large proof-surface headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project titles, role titles, skill category headings, and card headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Project descriptions, recruiter-facing summaries, resume copy, and form labels."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Pills, buttons, badges, metadata, and compact navigation."
+      }
+    },
+    "shadows": [
+      {
+        "name": "cta-glow",
+        "value": "0 0 24px rgba(20, 184, 166, 0.45)",
+        "purpose": "Signal hover state for recruiter-critical CTAs."
+      },
+      {
+        "name": "research-hover",
+        "value": "0 20px 60px rgba(139,92,246,0.15)",
+        "purpose": "Subtle violet lift for research cards."
+      },
+      {
+        "name": "resume-shell",
+        "value": "0 30px 120px rgba(8,145,178,0.18)",
+        "purpose": "Large framed resume/document shell."
+      },
+      {
+        "name": "card-ambient",
+        "value": "0 20px 80px rgba(0,0,0,0.35)",
+        "purpose": "Document-like panels only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "standard-out",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Navbar, menu, and polished reveal transitions."
+      },
+      {
+        "name": "gsap-power3-out",
+        "value": "power3.out",
+        "purpose": "Hero and scroll reveal choreography."
+      },
+      {
+        "name": "fast-state",
+        "value": "0.2s ease",
+        "purpose": "Hover, active, and focus transitions."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Recruiter CTA",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Use for resume, contact, live work, and other hiring actions.",
+      "html": "<button class=\"ds-btn-primary\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3v12m0 0 4-4m-4 4-4-4M5 21h14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><span>View Resume</span></button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(45,212,191,.5);border-radius:999px;background:linear-gradient(90deg,#14b8a6,#14b8a6,#0d9488);color:#fff;padding:12px 32px;font:600 16px/1.2 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}.ds-btn-primary svg{width:20px;height:20px}.ds-btn-primary:hover{transform:translateY(-2px);background:linear-gradient(90deg,#2dd4bf,#14b8a6,#10b981);box-shadow:0 0 24px rgba(20,184,166,.45)}.ds-btn-primary:focus-visible{outline:3px solid rgba(34,211,238,.65);outline-offset:3px}"
+    },
+    {
+      "name": "Secondary Recruiter CTA",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Use beside a primary CTA when the action is important but not dominant.",
+      "html": "<button class=\"ds-btn-secondary\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 17 17 7M9 7h8v8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><span>GitHub Repo</span></button>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.15);border-radius:999px;background:rgba(255,255,255,.05);color:#fff;padding:12px 32px;font:600 16px/1.2 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}.ds-btn-secondary svg{width:20px;height:20px}.ds-btn-secondary:hover{transform:translateY(-2px);border-color:rgba(34,211,238,.5);background:rgba(255,255,255,.1);box-shadow:0 0 18px rgba(34,211,238,.18)}.ds-btn-secondary:focus-visible{outline:3px solid rgba(34,211,238,.65);outline-offset:3px}"
+    },
+    {
+      "name": "Technical Tag Chip",
+      "kind": "chip",
+      "refersTo": "chip-accent",
+      "description": "Use for project tags, technology lists, and recruiter-scannable metadata.",
+      "html": "<span class=\"ds-chip\">#fastapi</span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;border:1px solid rgba(20,184,166,.4);border-radius:999px;background:rgba(20,184,166,.08);color:#2dd4bf;padding:4px 12px;font:700 12px/1.2 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;white-space:nowrap}.ds-chip:hover{background:rgba(20,184,166,.14);border-color:rgba(45,212,191,.65)}"
+    },
+    {
+      "name": "Flat Technical Panel",
+      "kind": "card",
+      "refersTo": "card-panel",
+      "description": "Default surface for skills, contact details, experience, and proof content.",
+      "html": "<article class=\"ds-panel\"><p class=\"ds-panel-label\">Current Role</p><h3>Trainee Software Engineer</h3><p>Building AI-powered applications, scalable APIs, and polished full-stack products.</p></article>",
+      "css": ".ds-panel{border:1px solid #1f2937;border-radius:24px;background:rgba(17,24,39,.8);color:#fff;padding:32px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backdrop-filter:blur(16px);transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}.ds-panel:hover{border-color:#374151;transform:translateY(-2px);box-shadow:0 0 24px rgba(20,184,166,.1)}.ds-panel-label{margin:0 0 8px;color:#2dd4bf;font-size:12px;font-weight:700;letter-spacing:.02em}.ds-panel h3{margin:0 0 10px;font-size:24px;line-height:1.18}.ds-panel p{margin:0;color:#9ca3af;font-size:15px;line-height:1.7}"
+    },
+    {
+      "name": "Dark Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Use for contact form fields and future recruiter inquiry forms.",
+      "html": "<label class=\"ds-field\"><span>Your Email</span><input placeholder=\"your.email@example.com\" /></label>",
+      "css": ".ds-field{display:grid;gap:8px;color:#9ca3af;font:500 14px/1.2 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.ds-field input{border:1px solid #374151;border-radius:12px;background:rgba(31,41,55,.5);color:#fff;padding:12px 16px;font:400 16px/1.4 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease}.ds-field input::placeholder{color:#9ca3af}.ds-field input:focus{outline:none;border-color:#14b8a6;box-shadow:0 0 0 3px rgba(20,184,166,.22);background:rgba(31,41,55,.72)}"
+    },
+    {
+      "name": "Compact Glass Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Fixed recruiter navigation with profile identity, section links, and social actions.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-logo\">RB</span><a class=\"is-active\">Projects</a><a>Skills</a><a>Resume</a></nav>",
+      "css": ".ds-nav{display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(99,102,241,.25);border-radius:999px;background:rgba(5,5,15,.85);color:rgba(255,255,255,.65);padding:8px 12px;font:500 14px/1.2 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backdrop-filter:blur(24px) saturate(1.5);box-shadow:0 8px 32px rgba(0,0,0,.45)}.ds-nav-logo{display:grid;place-items:center;width:36px;height:36px;border-radius:999px;background:linear-gradient(135deg,#8b5cf6,#38bdf8);color:#fff;font-weight:800;margin-right:6px}.ds-nav a{border-radius:999px;color:inherit;text-decoration:none;padding:8px 12px;transition:color .2s ease,background .2s ease}.ds-nav a:hover,.ds-nav a.is-active{background:rgba(139,92,246,.15);color:#fff}.ds-nav a:focus-visible{outline:3px solid rgba(34,211,238,.65);outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Recruiter Signal Console",
+    "overview": "This portfolio should feel like a focused technical command surface built for hiring decisions: dark, sharp, data-rich, and easy to scan. The current identity is a near-black engineering environment with teal/cyan action signals, violet AI-atmosphere accents, strong system UI typography, profile imagery, project screenshots, and controlled kinetic reveals.\n\nThe system is not trying to be cute, playful, or template-cyber. It should make recruiters trust the person behind the interface: the work is organized, the calls to action are unmistakable, and the visual effects support proof rather than distracting from it.",
+    "keyCharacteristics": [
+      "Near-black technical surfaces with restrained grid, glow, and particle atmosphere.",
+      "Teal/cyan as the primary hiring-action signal for resume, contact, GitHub, and live project links.",
+      "Violet/indigo used as secondary AI energy, never as the whole personality.",
+      "Flat technical panels with thin borders and tonal layering; glow belongs mostly to hover and hero moments.",
+      "Motion is choreographed enough to feel built, but scanning should stay fast."
+    ],
+    "rules": [
+      {
+        "name": "The Recruiter Action Rule",
+        "body": "Teal/cyan must identify the next hiring action: view resume, download PDF, contact, open GitHub, open LinkedIn, or view live work.",
+        "section": "colors"
+      },
+      {
+        "name": "The Atmosphere Is Secondary Rule",
+        "body": "Violet, indigo, pink, grids, particles, and glows may create AI atmosphere, but they must not bury project evidence or recruiter actions.",
+        "section": "colors"
+      },
+      {
+        "name": "The One-Family Confidence Rule",
+        "body": "Keep the current system font stack unless a future redesign deliberately chooses a recruiter-grade type direction; do not add a reflex display font just to look designed.",
+        "section": "typography"
+      },
+      {
+        "name": "The Label Restraint Rule",
+        "body": "Use uppercase and wide tracking only for resume headers or compact status labels. Repeated tiny uppercase section eyebrows are forbidden.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Technical Panel Rule",
+        "body": "Panels rest flat with tonal fill and one-pixel borders; glow appears only for hover, focus, or one primary hero moment.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Template Shine Rule",
+        "body": "Do not pair a generic 1px border with a huge decorative shadow across every card. If everything glows, no recruiter signal is visible.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do make recruiter actions unmistakable with Signal Teal and Data Cyan on resume, contact, GitHub, LinkedIn, and live-work links.",
+      "Do keep the interface professional, mature, and technically confident.",
+      "Do use real project screenshots, profile imagery, resume content, and measurable technical proof before adding atmosphere.",
+      "Do keep dark panels flat and precise at rest, with glow reserved for hover, focus, and hero emphasis.",
+      "Do preserve strong contrast on all gray text over black surfaces; muted copy still needs to be readable.",
+      "Do provide reduced-motion alternatives for GSAP, Framer Motion, loader, cursor, and scroll-triggered reveals."
+    ],
+    "donts": [
+      "Don't make the portfolio childish, playful, or novelty-driven.",
+      "Don't use generic AI-template aesthetics, overused cyber decorations without substance, or template-like portfolio sections.",
+      "Don't let violet/pink glow overpower teal/cyan recruiter actions.",
+      "Don't use gradient text as the default answer for every heading; use solid white headings with accent only where emphasis is earned.",
+      "Don't repeat tiny uppercase tracked labels above every section as generic scaffolding.",
+      "Don't use thick side-stripe borders, nested cards, or soft decorative shadows on every surface.",
+      "Don't hide real proof behind animation; content must be visible and scannable even if motion is reduced or delayed."
+    ]
+  }
+}
